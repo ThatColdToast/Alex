@@ -1,7 +1,6 @@
 package com.thatcoldtoast.alex;
 
 import com.google.inject.Inject;
-import com.velocitypowered.api.command.BrigadierCommand;
 import com.velocitypowered.api.command.CommandManager;
 import com.velocitypowered.api.command.CommandMeta;
 import com.velocitypowered.api.command.SimpleCommand;
@@ -33,17 +32,17 @@ public class Alex {
 
         CommandManager commandManager = proxy.getCommandManager();
 
-//        CommandMeta createServerCommandMeta = commandManager.metaBuilder("createserver")
-//                // This will create a new alias for the command "/test"
-//                // with the same arguments and functionality
-//                .aliases("cs")
-//                .plugin(this)
-//                .build();
-//
-//        SimpleCommand createServerCommand = new CreateServerSimpleCommand();
+        CommandMeta createServerCommandMeta = commandManager.metaBuilder("createserver")
+                // This will create a new alias for the command "/test"
+                // with the same arguments and functionality
+                .aliases("cs")
+                .plugin(this)
+                .build();
 
-        BrigadierCommand createServerCommand = CreateServerBrigadierCommand.createBrigadierCommand(proxy);
-        CommandMeta createServerCommandMeta = commandManager.metaBuilder(createServerCommand).build();
+        SimpleCommand createServerCommand = new CreateServerSimpleCommand(proxy, logger);
+
+//        BrigadierCommand createServerCommand = AddServerBrigadierCommand.createBrigadierCommand(proxy);
+//        CommandMeta createServerCommandMeta = commandManager.metaBuilder(createServerCommand).build();
 
         commandManager.register(createServerCommandMeta, createServerCommand);
     }
